@@ -1,0 +1,20 @@
+<html>
+<head>
+
+</head>
+<body>
+    <div id="student" style="text-align: center;">
+        <h1>Student Register</h1>
+        <input type="text" id="fullname" placeholder="FulName" style="font-size: large;">
+        <input type="text" id="score" placeholder="Score"style="font-size: large;"><br><br>
+        <input type="text" id="courseName" placeholder="Blockchain Developer" disabled style="font-size: large;"><br><br>
+        <button onclick="addToBlockchain()" id="btnAddstudent"style="font-size: large;">Add Student to Blockchain</button>
+    </div>
+
+    <!-- Blockchain script-->
+    <script src="/script/blockchain.js"></script>     
+    <!--cdn for npm web3 library browser-->
+     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script> 
+    
+</body>
+</html>
