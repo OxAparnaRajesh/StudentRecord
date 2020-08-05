@@ -152,5 +152,20 @@ window.addEventListener('load',async()=>{
 
 
 async function addToBlockchain(){
-    console.log("I am in issue function");
+	//console.log("I am in issue function");
+
+	var fullName = $('#fullName').val();
+	var score = $('#score').val();
+	var studentAddress=$('#studentAddress').val();
+	var courseName=$('#courseName').val();
+
+	console.log(fullName,score,courseName,studentAddress);
+
+
+	studentContract.methods
+	.addStudent(web3.utils.fromAscii(fullName),web3.utils.fromAscii(courseName),score,studentAddress)
+	.send({from: accounts[0]})
+	.on('receipt',function(receipt){
+		console.log(receipt);
+	});
 }
