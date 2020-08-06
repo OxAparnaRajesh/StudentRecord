@@ -114,19 +114,9 @@ var abi=[
 ]
 
 window.addEventListener('load',async()=>{
-
-	if(window.ethereum)
-	{
+	if(window.ethereum)	{
 		window.web3 = new Web3(ethereum);
-
-		accounts = await web3.eth.getAccounts();
-		console.log(accounts);
-		web3.eth.defaultAccount=accounts[0];
-		console.log("DefaultAccount is->",web3.eth.defaultAccount);
-
-		studentContract = await new web3.eth.Contract(abi,contractAddress);
-		console.log("studentContract->",studentContract);
-
+		
 		try{
 			await ethereum.enable();
 			if(typeof web3!=="undefined"){
@@ -135,6 +125,13 @@ window.addEventListener('load',async()=>{
 			else{
 				web3 = new Web3(new Web3.eth.providers.HttpProvider("https://rinkeby.infura.io/v3/48595f53d1b54956b75dd2b788cc562b"))
 			}
+			accounts = await web3.eth.getAccounts();
+		console.log(accounts);
+		web3.eth.defaultAccount=accounts[0];
+		console.log("DefaultAccount is->",web3.eth.defaultAccount);
+		studentContract = await new web3.eth.Contract(abi,contractAddress);
+		console.log("studentContract->",studentContract);
+	
 		}
 		catch(error){
 			console.log("Please allow to access the app");
@@ -164,8 +161,13 @@ async function addToBlockchain(){
 
 	studentContract.methods
 	.addStudent(web3.utils.fromAscii(fullName),web3.utils.fromAscii(courseName),score,studentAddress)
-	.send({from: accounts[0]})
+	.send({from: web3.eth.defaultAccount})
 	.on('receipt',function(receipt){
 		console.log(receipt);
 	});
+}
+async function getStudentAddressFromBlockchain(){
+	studentContract.methods.getAllStudentAddress().call().then(function(data){
+		console.log(data);
+	})
 }
