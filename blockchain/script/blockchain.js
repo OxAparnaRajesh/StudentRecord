@@ -146,19 +146,19 @@ window.addEventListener('load',async()=>{
 		console.log("Non ethereum browser detected. You may consider Metamask");
 	}
 });
-
-
-async function addToBlockchain(){
-	//console.log("I am in issue function");
-
 	var fullName = $('#fullName').val();
 	var score = $('#score').val();
 	var studentAddress=$('#studentAddress').val();
 	var courseName=$('#courseName').val();
-
 	console.log(fullName,score,courseName,studentAddress);
 
+async function addToBlockchain(){
+	//console.log("I am in issue function");
 
+	// var fullName = $('#fullName').val();
+	// var score = $('#score').val();
+	// var studentAddress=$('#studentAddress').val();
+ 	// var courseName=$('#courseName').val();
 	studentContract.methods
 	.addStudent(web3.utils.fromAscii(fullName),web3.utils.fromAscii(courseName),score,studentAddress)
 	.send({from: web3.eth.defaultAccount})
@@ -169,5 +169,27 @@ async function addToBlockchain(){
 async function getStudentAddressFromBlockchain(){
 	studentContract.methods.getAllStudentAddress().call().then(function(data){
 		console.log(data);
-	})
+		var htmlData='';
+
+		htmlData+='<div> Student Address <ul>';
+		for(var i=0;i<data.length;i++){
+			htmlData+='<li>'+data[i]+'</li>';
+		}
+
+		htmlData+='<ul> </div>';
+		$('#studentList').append(htmlData);
+	});
+}
+
+async function getStudentDetailsFromBlockchain(){
+	studentContract.methods.getAllStudents().call().then(function(data){
+		console.log(data);
+		//var htmlData='';
+		
+		$('#studentDetailsjq').show();
+		document.getElementById('studentName').innerHTML= web3.eth.toAscii(data[0]);
+		document.getElementById('studentCourse').innerHTML=web3.eth.toAscii(data[1]);
+		document.getElementById('studentScore').innerHTML= data[2];
+		
+	});
 }
