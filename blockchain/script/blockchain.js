@@ -176,20 +176,23 @@ async function getStudentAddressFromBlockchain(){
 			htmlData+='<li>'+data[i]+'</li>';
 		}
 
-		htmlData+='<ul> </div>';
+		htmlData+='</ul> </div>';
 		$('#studentList').append(htmlData);
 	});
 }
 
 async function getStudentDetailsFromBlockchain(){
-	studentContract.methods.getAllStudents().call().then(function(data){
-		console.log(data);
-		//var htmlData='';
-		
-		$('#studentDetailsjq').show();
-		document.getElementById('studentName').innerHTML= web3.eth.toAscii(data[0]);
-		document.getElementById('studentCourse').innerHTML=web3.eth.toAscii(data[1]);
-		document.getElementById('studentScore').innerHTML= data[2];
-		
+	studentContract.methods.getAllStudents().call().then((data) => {
+	console.log(data);
+	var htmlDetails='';	
+	htmlDetails+='<h4>Student Details</h4><table border="1px solid black">'
+	htmlDetails+='<tr><th>Full Name</th><th>Course Name</th><th>Score</th></tr>'    
+	for(var j=0;j<data[0].length;j++){
+		htmlDetails+= '<tr><td>'+web3.utils.hexToAscii(data[0][j])+'</td>'
+		htmlDetails+='<td>'+web3.utils.hexToAscii(data[1][j])+'</td>'
+		htmlDetails+='<td>'+data[2][j]+'</td></tr>'
+	}
+	htmlDetails+='</table></div>';
+	$('#studentDetails').append(htmlDetails);		
 	});
 }

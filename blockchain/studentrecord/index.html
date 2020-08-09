@@ -14,21 +14,17 @@
         <button onclick="getStudentDetailsFromBlockchain()" id="btngetstudent"style="font-size:large">Get Student Details</button><br><br>
         
         <div id="studentList"></div>
-        <div id="studentDetailsjq">
-            <h4>Student Details</h4>
-            <table border="1px solid green">
-            <tr>
-                <th>Name</th>
-                <th>Course</th>
-                <th>Score</th>
-            </tr>
-            <tr>
-                <td><p id="studentName"></p></td>
-                <td><p id="studentCourse"></p></td>
-                <td><p id="studentScore"></p></td>
-            </tr>
+        <div id="studentDetails">
+                <tr>
+
+                </tr>
             </table>
         </div>
+
+
+
+
+
         
     </div>
 
@@ -37,12 +33,6 @@
     <script src="/script/blockchain.js"></script>     
     <!--cdn for npm web3 library browser-->
      <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script> 
-     <script>
-
-        $(document).ready(function(){
-            $('#studentDetailsjq').hide();
-        });
-    </script>
      
 </body>
    
